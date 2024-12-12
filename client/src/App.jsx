@@ -1,21 +1,19 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import Navbar from './components/Navbar';
-import { AuthProvider } from './context/AuthContext';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/Login";
+import Taskboard from "./components/TaskBoard";
 
 const App = () => {
   return (
-    <AuthProvider>
-        <Navbar />
+    <>
+      <Router>
+        <h1>Task Board</h1>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/taskboard" element={<Taskboard />} />
         </Routes>
-    </AuthProvider>
+      </Router>
+    </>
   );
 };
 
