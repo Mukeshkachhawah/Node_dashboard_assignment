@@ -12,10 +12,9 @@ const Task = ({ list, fetchLists }) => {
         name: newTaskName,
         listId: list._id,
       });
-      
 
-      setNewTaskName(""); // Clear input field
-      fetchLists(); // Re-fetch the list to show the newly added task
+      setNewTaskName("");
+      fetchLists();
     } catch (err) {
       console.log("Error creating task:", err);
     }
