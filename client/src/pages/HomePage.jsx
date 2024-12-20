@@ -1,13 +1,15 @@
 import Navbar from "../components/Navbar/Navbar";
 import Taskboard from "../components/TaskBoard";
+import WorkspaceUI from "../components/Work-space-ui/WorkspaceNavbar";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
       <Navbar />
+      <WorkspaceUI />
       <Taskboard />
     </>
   );
 };
 
-export default Home;w
+export default HomePage;

@@ -145,4 +145,54 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { register, login, passwordForget, resetPassword };
+const updateProfile = async (req, res) => {
+  const { name, email } = req.body;
+  const token = req.headers.authorization?.split(" ")[1];
+  try {
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const decoded = jwt.verify(token, secretKey);
+    const user = await UserModel.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (email && email !== user.email) {
+      const emailExists = await UserModel.findOne({ email });
+      if (emailExists) {
+        return res.status(409).json({ message: "Email already in use" });
+      }
+      user.email = email;
+    }
+    if (name && name !== user.name) {
+      user.name = name;
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Profile updated successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (error) {
+    console.log("Error updating profile:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+module.exports = {
+  register,
+  login,
+  passwordForget,
+  resetPassword,
+  updateProfile,
+};

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import API from "./../api";
 import List from "./List";
+import { Box, Button, Typography } from "@mui/material";
 
 const Taskboard = () => {
   const [lists, setLists] = useState([]);
@@ -39,8 +40,8 @@ const Taskboard = () => {
   }, []);
 
   return (
-    <div>
-      <div style={{ margin: "10px", padding: "10px" }}>
+    <div style={{ position: "relative", padding: "10px" }}>
+      <div style={{ marginBottom: "20px" }}>
         {showInput ? (
           <div>
             <input
@@ -55,9 +56,21 @@ const Taskboard = () => {
         ) : (
           <button
             onClick={() => setShowInput(true)}
-            style={{ fontSize: "20px", cursor: "pointer" }}
+            style={{
+              fontSize: "20px",
+              cursor: "pointer",
+              position: "absolute",
+              right: "-180px",
+              top: "80px",
+              minWidth: 130,
+              maxWidth: 400,
+              boxShadow: 3,
+              borderRadius: 8,
+              backgroundColor: "black",
+              color: "white",
+            }}
           >
-            + Add List
+            + Add Another List
           </button>
         )}
       </div>
